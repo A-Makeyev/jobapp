@@ -10,6 +10,8 @@ python manage.py runserver 8000
 python manage.py startapp app
 python manage.py createsuperuser
 
+pip freeze > requirements.txt
+
 python manage.py makemigrations
 python manage.py sqlmigrate app 0001
 python manage.py showmigrations
