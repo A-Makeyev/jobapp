@@ -1,0 +1,56 @@
+https://docs.djangoproject.com/
+
+python -m venv env
+env\Scripts\activate
+deactivate
+pip list
+pip install django, Pillow, dj-database-url, psycopg2-binary
+django-admin startproject app .
+python manage.py runserver 8000
+python manage.py startapp app
+python manage.py createsuperuser
+
+python manage.py makemigrations
+python manage.py sqlmigrate app 0001
+python manage.py showmigrations
+python manage.py migrate       
+
+python manage.py shell
+>>> from app.models import JobPost, Author, Skills, Location
+>>> from django.db.models import Max, Avg
+>>> job_post_1 = JobPost(title='Job 1', description='Job 1 Desc', salary=5000)
+>>> job_post_1.save()
+>>> JobPost.objects.create(title='Job 2', description='Job 2 Desc', salary=7000) 
+>>> JobPost.objects.all()
+>>> JobPost.objects.filter(salary=5000)
+>>> JobPost.objects.filter(salary__gt=4000)
+>>> JobPost.objects.get(description='Job 2 Desc', salary=7000)
+>>> JobPost.objects.exclude(salary=7000)
+>>> JobPost.objects.order_by('title')
+>>> JobPost.objects.filter().exclude(salary=3000).filter(title__contains='Job 3')
+>>> JobPost.objects.count()
+>>> JobPost.objects.aggregate(Avg('salary'))
+>>> JobPost.objects.filter(id__lte=3).aggregate(Max('salary'))
+>>> JobPost.objects.filter(id__lte=3).aggregate(max_salary_variable=Max('salary') - Avg('salary'))
+>>> JobPost.objects.get(title='Job 1').delete()
+>>> JobPost.objects.filter(title__icontains='test').delete()
+>>> author_1 = Author(name='Esterbon Villalon', company='Amazoogle', designation='Right Hand of the CEO')
+>>> author_1.save()
+>>> author_1.jobpost_set.all() 
+>>> job_post_3 = author_1.jobpost_set.create(title='Job 3', description='Job 3 Desc', salary=3333)
+>>> author_1.jobpost_set.add(JobPost.objects.get(title__contains='Job 3'))
+>>> JobPost.objects.filter(author__name='Esterbon Villalon')
+>>> JobPost.objects.filter(author__name__contains='Esterbon', author__designation='Right Hand of the CEO')
+>>> Author.objects.filter(jobpost__pk=1)
+>>> job_post_10 = JobPost(title='Job 10', description='Job 10 Desc', salary=53000) 
+>>> skill_1 = Skills(name="Cyber Bullying") 
+>>> skill_1.save()
+>>> job_post_10.skills.add(skill_1) 
+>>> job_post_10.save()
+>>> job_post_10.skills.remove(skill_1) 
+>>> skill_1.jobpost_set.remove(job_post_10)
+>>> skill_1.jobpost_set.add(job_post_9, job_post_10)
+>>> location_1 = Location(country="Switzerland", state="Swiss", city="Geneva", street="Rue De Vieux", zip="96969X") 
+>>> location_1.save()
+>>> job_post_10.skills.add(location_1) 
+>>> exit()

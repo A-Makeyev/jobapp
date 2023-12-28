@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>add image</title>
+</head>
+<body>
+    <form method="post" enctype="multipart/form-data">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <button type="submit">submit</button>
+    </form>
+
+    {% if saved_object %}
+        <h2>{{ saved_object.description }}</h2>
+        <img src="{{ saved_object.image.url }}" alt="{{ saved_object.description }}" style="max-height: 500px;">
+    {% endif %}
+</body>
+</html>

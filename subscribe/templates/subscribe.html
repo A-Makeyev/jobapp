@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %} Sub {% endblock title %}
+{% block content %} 
+<section>
+  <div class="container">
+      <form class="email-form" method="post">
+        {% csrf_token %}
+        {{ form.as_p}}
+        <button class="email-submit">Submit</button>        
+    </form>
+  </div>
+</section>
+{% endblock content %}
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Subscribe/</title>
+</head>
+<body>
+    <h1>
+        Subscribe
+    </h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p}}
+
+        {% for field in form %}
+            <div class="subscribe_field">
+                {{ field.errors }}
+                {{ field.label_tag }}
+                <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                {{ field }}
+            </div>
+        {% endfor %}
+     
+        <input type="submit" value="submit">
+
+        <div class="subscribe_field">
+            <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+            {{ form.first_name }}
+            {{ form.first_name.errors }}
+        </div>
+
+        <div class="subscribe_field">
+            <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+            {{ form.last_name }}
+            {{ form.last_name.errors }}
+        </div>
+
+        <div class="subscribe_field">
+            <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+            {{ form.email }}
+            {{ form.email.errors }}
+        </div>
+
+    </form>
+</body>
+</html> -->
